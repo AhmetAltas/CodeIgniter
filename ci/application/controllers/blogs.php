@@ -53,7 +53,54 @@ class blogs extends CI_Controller {
         else
         {
         $this->blogs_model->set_blogs();
-         $this->load->view('blogs/success');
+         $this->load->view('blogs/success'); }}
+
+    public function edit($id){
+
+            $id = $this->uri->segment(3);
+
+            if (empty($id))
+            {
+                show_404();
+            }
+
+            $this->load->helper('form');
+            $this->load->library('form_validation');
+
+            $data['title'] = 'Edit a blog item';
+            $data['blogs_item'] = $this->blogs_model->get_blogs_by_id($id);                                    
+
+            $this->form_validation->set_rules('title', 'Title', 'required');
+            $this->form_validation->set_rules('text', 'Text', 'required');
+
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header', $data);
+                $this->load->view('blogs/edit', $data);
+                $this->load->view('templates/footer');
+
+            }
+            else
+            {
+                $this->blogs_model->set_blogs($id);
+                //$this->load->view('news/success');
+                redirect( base_url() . 'index.php/blogs');
+            };
         }
+
+        public function delete()
+    {
+        $id = $this->uri->segment(3);
+        
+        if (empty($id))
+        {
+            show_404();
+        }
+                
+        $blogs_item = $this->blogs_model->get_blogs_by_id($id);
+        
+        $this->blogs_model->delete_blogs($id);        
+        redirect( base_url() . 'index.php/blogs');        
     }
 }
+
