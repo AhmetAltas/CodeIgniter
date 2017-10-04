@@ -6,6 +6,7 @@ class blogs extends CI_Controller {
                 parent::__construct();
                 $this->load->model('blogs_model');
                 $this->load->helper('url_helper');
+                $this->load->library('session');
         }
 
         public function index()
@@ -50,8 +51,10 @@ class blogs extends CI_Controller {
          $this->load->view('templates/footer');
 
         }
-        else
+        else 
         {
+        $this->session->set_flashdata('success', 'blog added successfully');
+        redirect("blogs");
         $this->blogs_model->set_blogs();
          $this->load->view('blogs/success'); }}
 

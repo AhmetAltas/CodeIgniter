@@ -1,12 +1,26 @@
+                <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+ 
+                <script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('#DataTable').DataTable();
+});
+</script>
+
 <h2><?php echo $title; ?></h2>
  
-<table border='1' cellpadding='4'>
+<table id="DataTable" class="display">
+    <thead>
     <tr>
-        <td><strong>Title</strong></td>
-        <td><strong>Content</strong></td>
-        <td><strong>Action</strong></td>
+        <th><strong>Title</strong></th>
+        <th><strong>Content</strong></th>
+        <th><strong>Action</strong></th>
     </tr>
+    </thead>
 <?php foreach ($blogs as $blog): ?>
+
         <tr>
             <td><?php echo $blog['title']; ?></td>
             <td><?php echo $blog['text']; ?></td>
@@ -17,4 +31,5 @@
             </td>
         </tr>
 <?php endforeach; ?>
+
 </table>
